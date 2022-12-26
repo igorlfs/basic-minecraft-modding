@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "lit=true": {
+            "model": "limao:block/zircon_lamp_on"
+        },
+        "lit=false": {
+            "model": "limao:block/zircon_lamp_off"
+        }
+    }
+}

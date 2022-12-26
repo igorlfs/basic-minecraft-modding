@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "limao:block/deepslate_zircon_ore"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "item.limao.zircon": "Zircon",
+    "item.limao.raw_zircon": "Raw Zircon",
+    "item.limao.eight_ball": "Eight Ball",
+    "item.limao.blueberry": "Blueberry",
+    "item.limao.blueberry_seeds": "Blueberry Seeds",
+    "block.limao.zircon_ore": "Zircon Ore",
+    "block.limao.deepslate_zircon_ore": "Deepslate Zircon Ore",
+    "block.limao.zircon_block": "Block of Zircon",
+    "block.limao.jumpy_block": "Jumpy Block",
+    "block.limao.zircon_lamp": "Zircon Lamp",
+    "block.limao.blueberry_crop": "Blueberry Crop",
+    "itemGroup.limaotab": "Zircon",
+    "entity.minecraft.villager.limao.jumpy_master": "Jumpy Master"
+}
