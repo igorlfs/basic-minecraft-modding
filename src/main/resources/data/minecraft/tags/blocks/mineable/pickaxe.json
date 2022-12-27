@@ -1,8 +1,8 @@
 {
     "replace": false,
     "values": [
-        "limao:zircon_ore",
-        "limao:zircon_block",
-        "limao:deepslate_zircon_ore"
+        "tutorialmod:zircon_ore",
+        "tutorialmod:zircon_block",
+        "tutorialmod:deepslate_zircon_ore"
     ]
 }
