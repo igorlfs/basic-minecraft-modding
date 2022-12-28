@@ -4,8 +4,10 @@ import java.util.function.Supplier;
 
 import biden.tutorialmod.TutorialMod;
 import biden.tutorialmod.block.custom.BlueBerryCropBlock;
+import biden.tutorialmod.block.custom.GemInfusingStationBlock;
 import biden.tutorialmod.block.custom.JumpyBlock;
 import biden.tutorialmod.block.custom.ZirconLampBlock;
+import biden.tutorialmod.fluid.ModFluids;
 import biden.tutorialmod.item.ModCreativeModeTab;
 import biden.tutorialmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -72,6 +75,15 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLUEBERRY_CROP = BLOCKS.register("blueberry_crop",
             () -> new BlueBerryCropBlock(
                     BlockBehaviour.Properties.copy(Blocks.WHEAT)));
+
+    public static final RegistryObject<LiquidBlock> SOAP_WATER_BLOCK = BLOCKS.register("soap_water_block",
+            () -> new LiquidBlock(ModFluids.SOURCE_SOAP_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
+
+    public static final RegistryObject<Block> GEM_INFUSING_STATION = registerBlock("gem_infusing_station",
+            () -> new GemInfusingStationBlock(
+                    BlockBehaviour.Properties.of(Material.METAL).strength(6f).requiresCorrectToolForDrops()
+                            .noOcclusion()),
+            ModCreativeModeTab.TUTORIAL_TAB);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block,
             CreativeModeTab tab) {

@@ -1,16 +1,16 @@
 package biden.tutorialmod;
 
-import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
-
 import biden.tutorialmod.block.ModBlocks;
+import biden.tutorialmod.fluid.ModFluids;
+import biden.tutorialmod.fluid.ModFluidsTypes;
 import biden.tutorialmod.item.ModItems;
 import biden.tutorialmod.networking.ModMessages;
 import biden.tutorialmod.painting.ModPaintings;
 import biden.tutorialmod.villager.ModVillagers;
 import biden.tutorialmod.world.feature.ModConfiguredFeatures;
 import biden.tutorialmod.world.feature.ModPlacedFeatures;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,7 +23,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(TutorialMod.MOD_ID)
 public class TutorialMod {
     public static final String MOD_ID = "tutorialmod";
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public TutorialMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -34,6 +33,8 @@ public class TutorialMod {
         ModPaintings.register(modEventBus);
         ModConfiguredFeatures.register(modEventBus);
         ModPlacedFeatures.register(modEventBus);
+        ModFluids.register(modEventBus);
+        ModFluidsTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -53,6 +54,8 @@ public class TutorialMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SOAP_WATER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SOAP_WATER.get(), RenderType.translucent());
         }
     }
 }

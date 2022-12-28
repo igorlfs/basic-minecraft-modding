@@ -2,6 +2,8 @@ package biden.tutorialmod.networking.packet;
 
 import java.util.function.Supplier;
 
+import biden.tutorialmod.networking.ModMessages;
+import biden.tutorialmod.thirst.PlayerThirstProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -46,9 +48,25 @@ public class DrinkWaterC2SPacket {
                 // play the drinking sound
                 level.playSound(null, player.getOnPos(), SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS,
                         0.5F, level.random.nextFloat() * 0.1F + 0.9F);
+                // increase the thirst lavel
+                player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                    thirst.addThirst(1);
+                    // output current thirst level
+                    player.sendSystemMessage(
+                            Component.literal("Current thirst " + thirst.getThirst())
+                                    .withStyle(ChatFormatting.AQUA));
+                    ModMessages.sendToPlayer(new ThirstDataSyncS2CPacket(thirst.getThirst()), player);
+                });
             } else {
                 player.sendSystemMessage(
                         Component.translatable(MESSAGE_NO_WATER).withStyle(ChatFormatting.RED));
+                player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                    // output current thirst level
+                    player.sendSystemMessage(
+                            Component.literal("Current thirst " + thirst.getThirst())
+                                    .withStyle(ChatFormatting.AQUA));
+                    ModMessages.sendToPlayer(new ThirstDataSyncS2CPacket(thirst.getThirst()), player);
+                });
             }
 
         });
