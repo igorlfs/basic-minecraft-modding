@@ -1,14 +1,18 @@
 package biden.tutorialmod;
 
 import biden.tutorialmod.block.ModBlocks;
+import biden.tutorialmod.block.entity.ModBlockEntities;
 import biden.tutorialmod.fluid.ModFluids;
 import biden.tutorialmod.fluid.ModFluidsTypes;
 import biden.tutorialmod.item.ModItems;
 import biden.tutorialmod.networking.ModMessages;
 import biden.tutorialmod.painting.ModPaintings;
+import biden.tutorialmod.screen.GemInfusingStationScreen;
+import biden.tutorialmod.screen.ModMenuTypes;
 import biden.tutorialmod.villager.ModVillagers;
 import biden.tutorialmod.world.feature.ModConfiguredFeatures;
 import biden.tutorialmod.world.feature.ModPlacedFeatures;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,6 +39,8 @@ public class TutorialMod {
         ModPlacedFeatures.register(modEventBus);
         ModFluids.register(modEventBus);
         ModFluidsTypes.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -56,6 +62,8 @@ public class TutorialMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SOAP_WATER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SOAP_WATER.get(), RenderType.translucent());
+
+            MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), GemInfusingStationScreen::new);
         }
     }
 }
