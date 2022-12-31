@@ -2,7 +2,7 @@
     "credit": "Made with Blockbench",
     "textures": {
         "0": "tutorialmod:block/tray_texture",
-        "1": "tutorialmod:block/texture",
+        "1": "tutorialmod:block/main_texture",
         "2": "tutorialmod:block/leg_texture",
         "particle": "tutorialmod:block/tray_texture"
     },

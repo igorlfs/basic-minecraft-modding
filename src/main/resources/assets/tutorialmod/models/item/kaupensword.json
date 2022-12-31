@@ -1,11 +1,11 @@
 {
     "credit": "Made with Blockbench",
     "textures": {
-        "0": "tutuorialmod:item/bottom_sword_texture",
-        "1": "tutuorialmod:item/guard_texture",
-        "2": "tutuorialmod:item/hilt_texture",
-        "3": "tutuorialmod:item/top_sword_texture",
-        "particle": "tutuorialmod:item/bottom_sword_texture"
+        "0": "tutorialmod:item/bottom_sword_texture",
+        "1": "tutorialmod:item/guard_texture",
+        "2": "tutorialmod:item/hilt_texture",
+        "3": "tutorialmod:item/top_sword_texture",
+        "particle": "tutorialmod:item/bottom_sword_texture"
     },
     "elements": [
         {
