@@ -7,6 +7,7 @@ import biden.tutorialmod.fluid.ModFluidsTypes;
 import biden.tutorialmod.item.ModItems;
 import biden.tutorialmod.networking.ModMessages;
 import biden.tutorialmod.painting.ModPaintings;
+import biden.tutorialmod.recipe.ModRecipes;
 import biden.tutorialmod.screen.GemInfusingStationScreen;
 import biden.tutorialmod.screen.ModMenuTypes;
 import biden.tutorialmod.villager.ModVillagers;
@@ -41,6 +42,7 @@ public class TutorialMod {
         ModFluidsTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
