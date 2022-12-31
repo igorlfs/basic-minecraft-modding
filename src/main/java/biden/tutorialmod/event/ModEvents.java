@@ -10,7 +10,6 @@ import biden.tutorialmod.thirst.PlayerThirst;
 import biden.tutorialmod.thirst.PlayerThirstProvider;
 import biden.tutorialmod.villager.ModVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
