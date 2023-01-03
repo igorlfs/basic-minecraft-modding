@@ -14,8 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.SlotItemHandler;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * GemInfusingStationMenu
@@ -26,6 +28,9 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
     private final Level level;
     private final ContainerData data;
     private static final int SLOT_COUNT = 3;
+    @Setter
+    @Getter
+    private FluidStack fluidStack;
 
     public GemInfusingStationMenu(int id, Inventory inventory, FriendlyByteBuf extraData) {
         this(id, inventory, inventory.player.level.getBlockEntity(extraData.readBlockPos()),
@@ -38,6 +43,7 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
         blockEntity = (GemInfusingStationBlockEntity) entity;
         this.level = inventory.player.level;
         this.data = data;
+        this.fluidStack = blockEntity.getFluidStack();
 
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);

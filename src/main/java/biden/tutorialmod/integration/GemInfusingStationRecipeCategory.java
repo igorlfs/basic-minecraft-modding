@@ -1,9 +1,12 @@
 package biden.tutorialmod.integration;
 
+import java.util.List;
+
 import biden.tutorialmod.TutorialMod;
 import biden.tutorialmod.block.ModBlocks;
 import biden.tutorialmod.recipe.GemInfusingStationRecipe;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -55,6 +58,9 @@ public class GemInfusingStationRecipeCategory implements IRecipeCategory<GemInfu
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, GemInfusingStationRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 86, 15).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 55, 15)
+                .addIngredients(ForgeTypes.FLUID_STACK, List.of(recipe.getFluidStack()))
+                .setFluidRenderer(64000, false, 16, 61);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 86, 60).addItemStack(recipe.getResultItem());
     }
 }

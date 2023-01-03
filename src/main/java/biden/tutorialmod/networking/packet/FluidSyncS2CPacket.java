@@ -7,28 +7,29 @@ import biden.tutorialmod.screen.GemInfusingStationMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
 
 /**
  * ExampleC2S
  */
-public class EnergySyncS2CPacket {
+public class FluidSyncS2CPacket {
 
-    private final int energy;
+    private final FluidStack fluidStack;
     private final BlockPos pos;
 
-    public EnergySyncS2CPacket(int energy, BlockPos pos) {
-        this.energy = energy;
+    public FluidSyncS2CPacket(FluidStack energy, BlockPos pos) {
+        this.fluidStack = energy;
         this.pos = pos;
     }
 
-    public EnergySyncS2CPacket(FriendlyByteBuf buf) {
-        this.energy = buf.readInt();
+    public FluidSyncS2CPacket(FriendlyByteBuf buf) {
+        this.fluidStack = buf.readFluidStack();
         this.pos = buf.readBlockPos();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeInt(this.energy);
+        buf.writeFluidStack(this.fluidStack);
         buf.writeBlockPos(this.pos);
     }
 
@@ -38,10 +39,10 @@ public class EnergySyncS2CPacket {
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.level
                     .getBlockEntity(pos) instanceof GemInfusingStationBlockEntity blockEntity) {
-                blockEntity.setEnergyLevel(energy);
+                blockEntity.setFluid(this.fluidStack);
                 if (minecraft.player.containerMenu instanceof GemInfusingStationMenu menu
                         && menu.getBlockEntity().getBlockPos().equals(pos)) {
-                    blockEntity.setEnergyLevel(energy);
+                    menu.setFluidStack(this.fluidStack);
                 }
             }
         });

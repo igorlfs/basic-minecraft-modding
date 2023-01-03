@@ -4,6 +4,7 @@ import biden.tutorialmod.TutorialMod;
 import biden.tutorialmod.networking.packet.DrinkWaterC2SPacket;
 import biden.tutorialmod.networking.packet.EnergySyncS2CPacket;
 import biden.tutorialmod.networking.packet.ExampleC2SPacket;
+import biden.tutorialmod.networking.packet.FluidSyncS2CPacket;
 import biden.tutorialmod.networking.packet.ThirstDataSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,6 +47,10 @@ public class ModMessages {
         net.messageBuilder(EnergySyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(EnergySyncS2CPacket::new)
                 .encoder(EnergySyncS2CPacket::toBytes).consumerMainThread(EnergySyncS2CPacket::handle).add();
+
+        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(FluidSyncS2CPacket::new)
+                .encoder(FluidSyncS2CPacket::toBytes).consumerMainThread(FluidSyncS2CPacket::handle).add();
 
     }
 
