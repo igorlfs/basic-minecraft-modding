@@ -12,6 +12,7 @@ import biden.tutorialmod.item.ModItems;
 import biden.tutorialmod.networking.ModMessages;
 import biden.tutorialmod.networking.packet.EnergySyncS2CPacket;
 import biden.tutorialmod.networking.packet.FluidSyncS2CPacket;
+import biden.tutorialmod.networking.packet.ItemStackSyncS2CPacket;
 import biden.tutorialmod.recipe.GemInfusingStationRecipe;
 import biden.tutorialmod.screen.GemInfusingStationMenu;
 import biden.tutorialmod.util.ModEnergyStorage;
@@ -50,6 +51,9 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+            if (!level.isClientSide()) {
+                ModMessages.sendToClients(new ItemStackSyncS2CPacket(this, worldPosition));
+            }
         };
 
         @Override
@@ -62,8 +66,6 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
             };
         };
     };
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(60000, 256) {
         @Override
@@ -97,6 +99,26 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     public FluidStack getFluidStack() {
         return this.FLUID_TANK.getFluid();
     }
+
+    public ItemStack getRenderStack() {
+        ItemStack stack;
+
+        if (!this.itemStackHandler.getStackInSlot(2).isEmpty()) {
+            stack = this.itemStackHandler.getStackInSlot(2);
+        } else {
+            stack = this.itemStackHandler.getStackInSlot(1);
+        }
+
+        return stack;
+    }
+
+    public void setHandler(ItemStackHandler iHandler) {
+        for (int i = 0; i < iHandler.getSlots(); i++) {
+            this.itemStackHandler.setStackInSlot(i, iHandler.getStackInSlot(i));
+        }
+    }
+
+    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     private final Map<Direction, LazyOptional<WrappedHandler>> directionWrappedHandlerMap = Map.of(Direction.DOWN,
             LazyOptional.of(() -> new WrappedHandler(itemStackHandler, (i) -> i == 2, (i, s) -> false)),

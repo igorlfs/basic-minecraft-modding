@@ -1,11 +1,14 @@
 package biden.tutorialmod.event;
 
 import biden.tutorialmod.TutorialMod;
+import biden.tutorialmod.block.entity.ModBlockEntities;
+import biden.tutorialmod.block.entity.renderer.GemInfusingStationBlockEntityRenderer;
 import biden.tutorialmod.client.ThirstHudOverlay;
 import biden.tutorialmod.networking.ModMessages;
 import biden.tutorialmod.networking.packet.DrinkWaterC2SPacket;
 import biden.tutorialmod.util.KeyBinding;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -37,6 +40,12 @@ public class ClientEvents {
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
             event.registerAboveAll("thirst", ThirstHudOverlay.HUD_THIRST);
+        }
+
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ModBlockEntities.GEM_INFUSING_STATION.get(),
+                    GemInfusingStationBlockEntityRenderer::new);
         }
     }
 }
