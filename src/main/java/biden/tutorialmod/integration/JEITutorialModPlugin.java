@@ -35,8 +35,7 @@ public class JEITutorialModPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        Minecraft minecraft = Minecraft.getInstance();
-        RecipeManager rm = Objects.requireNonNull(minecraft.level).getRecipeManager();
+        RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
         List<GemInfusingStationRecipe> recipesInfusing = rm.getAllRecipesFor(GemInfusingStationRecipe.Type.INSTANCE);
         registration.addRecipes(INFUSION_TYPE, recipesInfusing);

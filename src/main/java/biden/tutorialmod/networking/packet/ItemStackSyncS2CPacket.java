@@ -6,12 +6,10 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import biden.tutorialmod.block.entity.GemInfusingStationBlockEntity;
-import biden.tutorialmod.screen.GemInfusingStationMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkEvent;
 
