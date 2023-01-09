@@ -7,6 +7,7 @@ import biden.tutorialmod.entity.client.ChomperRenderer;
 import biden.tutorialmod.fluid.ModFluids;
 import biden.tutorialmod.fluid.ModFluidsTypes;
 import biden.tutorialmod.item.ModItems;
+import biden.tutorialmod.loot.ModLootModifiers;
 import biden.tutorialmod.networking.ModMessages;
 import biden.tutorialmod.painting.ModPaintings;
 import biden.tutorialmod.recipe.ModRecipes;
@@ -53,6 +54,7 @@ public class TutorialMod {
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModEntityTypes.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
 
         GeckoLib.initialize();
 
