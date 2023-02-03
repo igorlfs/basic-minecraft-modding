@@ -2,16 +2,13 @@ package biden.tutorialmod.entity.client;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import biden.tutorialmod.TutorialMod;
 import biden.tutorialmod.entity.custom.ChomperEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 /**
  * ChomperRenderer
@@ -29,12 +26,9 @@ public class ChomperRenderer extends GeoEntityRenderer<ChomperEntity> {
     }
 
     @Override
-    public RenderType getRenderType(ChomperEntity animatable, float partialTicks, PoseStack stack,
-            @Nullable MultiBufferSource renderTypeBuffer,
-            @Nullable VertexConsumer vertexBuilder, int packedLightIn,
-            ResourceLocation textureLocation) {
-        stack.scale(0.8f, 0.8f, 0.8f);
-        return super.getRenderType(animatable, partialTicks, stack, renderTypeBuffer, vertexBuilder, packedLightIn,
-                textureLocation);
+    public RenderType getRenderType(ChomperEntity animatable, ResourceLocation texture,
+            @Nullable MultiBufferSource bufferSource, float partialTick) {
+        return super.getRenderType(animatable, texture, bufferSource, partialTick);
     }
+
 }

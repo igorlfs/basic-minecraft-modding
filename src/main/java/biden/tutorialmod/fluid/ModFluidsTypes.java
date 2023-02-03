@@ -1,6 +1,6 @@
 package biden.tutorialmod.fluid;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 
 import biden.tutorialmod.TutorialMod;
 import net.minecraft.resources.ResourceLocation;

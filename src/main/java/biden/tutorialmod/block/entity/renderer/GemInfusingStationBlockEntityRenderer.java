@@ -1,7 +1,7 @@
 package biden.tutorialmod.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 
 import biden.tutorialmod.block.custom.GemInfusingStationBlock;
 import biden.tutorialmod.block.entity.GemInfusingStationBlockEntity;
@@ -33,14 +33,14 @@ public class GemInfusingStationBlockEntityRenderer implements BlockEntityRendere
         pPoseStack.pushPose();
         pPoseStack.translate(0.5f, 0.65f, 0.5f);
         pPoseStack.scale(0.25f, 0.25f, 0.25f);
-        pPoseStack.mulPose(Vector3f.XP.rotationDegrees(90));
+        pPoseStack.mulPose(Axis.XP.rotationDegrees(90));
 
         switch (pBlockEntity.getBlockState().getValue(GemInfusingStationBlock.FACING)) {
-            case NORTH -> pPoseStack.mulPose(Vector3f.ZP.rotationDegrees(0));
-            case EAST -> pPoseStack.mulPose(Vector3f.ZP.rotationDegrees(90));
-            case SOUTH -> pPoseStack.mulPose(Vector3f.ZP.rotationDegrees(180));
-            case WEST -> pPoseStack.mulPose(Vector3f.ZP.rotationDegrees(270));
-            default -> pPoseStack.mulPose(Vector3f.ZP.rotationDegrees(0));
+            case NORTH -> pPoseStack.mulPose(Axis.ZP.rotationDegrees(0));
+            case EAST -> pPoseStack.mulPose(Axis.ZP.rotationDegrees(90));
+            case SOUTH -> pPoseStack.mulPose(Axis.ZP.rotationDegrees(180));
+            case WEST -> pPoseStack.mulPose(Axis.ZP.rotationDegrees(270));
+            default -> pPoseStack.mulPose(Axis.ZP.rotationDegrees(0));
         }
         itemRenderer.renderStatic(itemStack, TransformType.GUI, getLightLevel(pBlockEntity.getLevel(),
                 pBlockEntity.getBlockPos()),

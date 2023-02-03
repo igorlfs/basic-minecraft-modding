@@ -4,10 +4,16 @@ import java.util.List;
 
 import biden.tutorialmod.TutorialMod;
 import biden.tutorialmod.block.ModBlocks;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -15,54 +21,53 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 /**
  * ModPlacedFeatures
  */
 public class ModPlacedFeatures {
+    public static final ResourceKey<PlacedFeature> RED_MAPLE_CHECKED_KEY = createKey("red_maple_checked");
+    public static final ResourceKey<PlacedFeature> RED_MAPLE_PLACED_KEY = createKey("red_maple_placed");
 
-    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister
-            .create(Registry.PLACED_FEATURE_REGISTRY, TutorialMod.MOD_ID);
+    public static final ResourceKey<PlacedFeature> ZIRCON_PLACED_KEY = createKey("zircon_placed");
+    public static final ResourceKey<PlacedFeature> END_ZIRCON_PLACED_KEY = createKey("end_zircon_placed");
+    public static final ResourceKey<PlacedFeature> NETHER_ZIRCON_PLACED_KEY = createKey("nether_zircon_placed");
 
-    public static final RegistryObject<PlacedFeature> ZIRCON_ORE_PLACED = PLACED_FEATURES.register("zircon_ore_placed",
-            () -> new PlacedFeature(ModConfiguredFeatures.ZIRCON_ORE.getHolder().get(),
-                    commonOrePlacement(7, // VeinsPerChunk
-                            HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80),
-                                    VerticalAnchor.aboveBottom(80)))));
+    public static final ResourceKey<PlacedFeature> ZIRCON_GEODE_PLACED_KEY = createKey("zircon_geode_placed");
 
-    public static final RegistryObject<PlacedFeature> END_ZIRCON_ORE_PLACED = PLACED_FEATURES.register(
-            "end_zircon_ore_placed",
-            () -> new PlacedFeature(ModConfiguredFeatures.END_ZIRCON_ORE.getHolder().get(), commonOrePlacement(7, // VeinsPerChunk
-                    HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
+    public static final ResourceKey<PlacedFeature> JASMINE_PLACED_KEY = createKey("jasmine_placed");
 
-    public static final RegistryObject<PlacedFeature> NETHER_ZIRCON_ORE_PLACED = PLACED_FEATURES.register(
-            "nether_zircon_ore_placed",
-            () -> new PlacedFeature(ModConfiguredFeatures.NETHER_ZIRCON_ORE.getHolder().get(), commonOrePlacement(7, // VeinsPerChunk
-                    HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
+    public static void bootstrap(BootstapContext<PlacedFeature> context) {
+        HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+        register(context, RED_MAPLE_CHECKED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.RED_MAPLE_KEY),
+                List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get())));
+        register(context, RED_MAPLE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.RED_MAPLE_KEY),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2)));
 
-    public static final RegistryObject<PlacedFeature> RED_MAPLE_CHECKED = PLACED_FEATURES.register("red_maple_checked",
-            () -> new PlacedFeature(ModConfiguredFeatures.RED_MAPLE.getHolder().get(),
-                    List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get()))));
+        register(context, ZIRCON_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.OVERWORLD_ZIRCON_ORE_KEY),
+                commonOrePlacement(12, // VeinsPerChunk
+                        HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80),
+                                VerticalAnchor.aboveBottom(80))));
+        register(context, NETHER_ZIRCON_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.NETHER_ZIRCON_ORE_KEY),
+                commonOrePlacement(12, // VeinsPerChunk
+                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
+        register(context, END_ZIRCON_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.END_ZIRCON_ORE_KEY),
+                commonOrePlacement(12, // VeinsPerChunk
+                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
 
-    public static final RegistryObject<PlacedFeature> RED_MAPLE_PLACED = PLACED_FEATURES.register("red_maple_placed",
-            () -> new PlacedFeature(ModConfiguredFeatures.RED_MAPLE_SPAWN.getHolder().get(),
-                    VegetationPlacements.treePlacement(
-                            PlacementUtils.countExtra(3, 0.1f, 2))));
+        register(context, ZIRCON_GEODE_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.ZIRCON_GEODE_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(50), InSquarePlacement.spread(),
+                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(50)),
+                        BiomeFilter.biome()));
 
-    public static final RegistryObject<PlacedFeature> ZIRCON_GEODE_PLACED = PLACED_FEATURES.register(
-            "zircon_geode_placed",
-            () -> new PlacedFeature(ModConfiguredFeatures.ZIRCON_GEODE.getHolder().get(), List.of(
-                    RarityFilter.onAverageOnceEvery(50), InSquarePlacement.spread(),
-                    HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(50)),
-                    BiomeFilter.biome())));
-
-    public static final RegistryObject<PlacedFeature> JASMINE_PLACED = PLACED_FEATURES.register("jasmine_placed",
-            () -> new PlacedFeature(ModConfiguredFeatures.JASMINE.getHolder().get(),
-                    List.of(RarityFilter.onAverageOnceEvery(16),
-                            InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome())));
+        register(context, JASMINE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.JASMINE_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(16),
+                        InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+    }
 
     public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
         return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());
@@ -76,7 +81,13 @@ public class ModPlacedFeatures {
         return orePlacement(RarityFilter.onAverageOnceEvery(p_195350_), p_195351_);
     }
 
-    public static void register(IEventBus eventBus) {
-        PLACED_FEATURES.register(eventBus);
+    private static ResourceKey<PlacedFeature> createKey(String name) {
+        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(TutorialMod.MOD_ID, name));
+    }
+
+    private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key,
+            Holder<ConfiguredFeature<?, ?>> configuration,
+            List<PlacementModifier> modifiers) {
+        context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
     }
 }

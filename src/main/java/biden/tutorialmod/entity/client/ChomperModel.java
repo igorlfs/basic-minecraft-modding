@@ -3,12 +3,12 @@ package biden.tutorialmod.entity.client;
 import biden.tutorialmod.TutorialMod;
 import biden.tutorialmod.entity.custom.ChomperEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
 /**
  * ChomperModel
  */
-public class ChomperModel extends AnimatedGeoModel<ChomperEntity> {
+public class ChomperModel extends GeoModel<ChomperEntity> {
 
     @Override
     public ResourceLocation getModelResource(ChomperEntity object) {
